@@ -27,5 +27,8 @@ RUN apt-get update && \
 
 COPY ./infra/docker/php/php-fpm.d/zzz-www.conf /usr/local/etc/php-fpm.d/zzz-www.conf
 COPY ./infra/docker/php/php.ini /usr/local/etc/php/php.ini
+# compose.ymlのvolumeでマウントしているのをECR用にimageファイルでもマウントする
+# chownでstorageディレクトリが権限Errorにならないようにする
+COPY --chown=www-data:www-data ./backend /work/backend
 
 WORKDIR /work/backend
