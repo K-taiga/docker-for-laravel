@@ -6,7 +6,7 @@ on:
   push:
     branches:
     - main
-
+    - feature/push_images_to_ecr
 env:
   AWS_REGION: ap-northeast-1
   # githubのワークフローのコミットSHAをimageタグに利用
@@ -24,7 +24,7 @@ jobs:
     # ジョブのステップ
     steps:
       - name: Configure aws credentials for prod
-        if: github.ref == 'refs/head/main'
+        # if: github.ref == 'refs/head/main'
         # 使用するアクション名 = GitHub Actions用に用意された処理のまとまり
         # aws-actions/configure-aws-credentials@v1 = AWS CLIを以下の認証情報で実行
         uses: aws-actions/configure-aws-credentials@v1
@@ -36,7 +36,7 @@ jobs:
           role-to-assume: ${{ secrets.PROD_AWS_ASSUME_ROLE_ARN }}
           role-duration-seconds: 1800
       - name: Set env vars for prod
-        if: github.ref == 'refs/head/main'
+        # if: github.ref == 'refs/head/main'
         # Github Actions使用する環境変数を設定
         run: echo "ENV_NAME=prod" >> $GITHUB_ENV
       # Github Actionsの環境にlaravel-fargate-appのコードをクローンしてくる
