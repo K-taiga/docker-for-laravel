@@ -39,6 +39,13 @@ jobs:
         if: github.ref == 'refs/heads/main'
         # Github Actions使用する環境変数を設定
         run: echo "ENV_NAME=prod" >> $GITHUB_ENV
+      - name: Download ecspresso
+        uses: kayac/ecspresso@v0
+        with:
+          version: v1.5.3
+      - name: Deploy to ecs
+        run: ecspresso deploy --config config_$ENV_NAME.yaml
+        working-directory: ./ecspresso
       # Github Actionsの環境にlaravel-fargate-appのコードをクローンしてくる
       - uses: actions/checkout@v2
       - run: docker-compose up -d --build app web
