@@ -129,3 +129,11 @@ ide-helper:
 	docker-compose exec app php artisan ide-helper:generate
 	docker-compose exec app php artisan ide-helper:meta
 	docker-compose exec app php artisan ide-helper:models --nowrite
+
+ecs-deploy:
+	cd ecspresso && IMAGE_TAG=latest AWS_REGION=ap-northeast-1 \
+		SYSTEM_NAME=example ENV_NAME=prod SERVICE_NAME=laravel-fargate-app \
+		ecspresso deploy --config=config_prod.yaml --skip-task-definition
+
+ecs-stop:
+	cd ecspresso && ecspresso deploy --config config_prod.yaml --tasks 0
