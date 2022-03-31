@@ -136,4 +136,4 @@ ecs-deploy:
 		ecspresso deploy --config=config_prod.yaml --skip-task-definition
 
 ecs-stop:
-	cd ecspresso && ecspresso deploy --config config_prod.yaml --tasks 0
+	cd ecspresso && ecspresso deploy --config=config_prod.yaml --skip-task-definition --tasks 0
