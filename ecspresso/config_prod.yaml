@@ -7,4 +7,4 @@ timeout: 10m0s
 plugins:
   - name: tfstate
     config:
-      url: s3://k-taiga-tfstate/example/prod/cicd/laravel-fargate-app_v1.0.0.tfstate"
+      url: s3://k-taiga-tfstate/example/prod/cicd/laravel-fargate-app_v1.0.0.tfstate
