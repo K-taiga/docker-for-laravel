@@ -2,13 +2,19 @@
     "containerDefinitions": [
         {
             "cpu": 0,
+            "command": ["sh", "scripts/deploy.sh"],
             "dependsOn": [
                 {
                     "condition": "START",
                     "containerName": "php"
                 }
             ],
-            "environment": [],
+            "environment": [
+                {
+                    "name": "VPC_CIDR",
+                    "value": "{{ must_env `VPC_CIDR` }}"
+                }
+            ],
             "environmentFiles": [
                 {
                     "type": "s3",
