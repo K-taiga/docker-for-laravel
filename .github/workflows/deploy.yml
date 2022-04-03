@@ -37,8 +37,10 @@ jobs:
           role-duration-seconds: 1800
       - name: Set env vars for prod
         if: github.ref == 'refs/heads/main'
-        # Github Actions使用する環境変数を設定
-        run: echo "ENV_NAME=prod" >> $GITHUB_ENV
+        # Github Actionsで使用する環境変数を設定
+        run: |
+          echo "ENV_NAME=prod" >> $GITHUB_ENV
+          echo "VPC_CIDR=172.31.0.0/16" >> $GITHUB_ENV
       # Github Actionsの環境にlaravel-fargate-appのコードをクローンしてくる
       - uses: actions/checkout@v2
       - run: docker-compose up -d --build app web
