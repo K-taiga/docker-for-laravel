@@ -137,3 +137,19 @@ ecs-deploy:
 
 ecs-stop:
 	cd ecspresso && ecspresso deploy --config=config_prod.yaml --skip-task-definition --tasks 0
+
+ecs-execute-php:
+	aws ecs execute-command \
+	--cluster example-prod-laravel-fargate-app \
+	--container php \
+	--interactive \
+	--command "/bin/bash" \
+	--task タスクID
+
+ecs-execute-nginx:
+	aws ecs execute-command \
+	--cluster example-prod-laravel-fargate-app \
+	--container nginx \
+	--interactive \
+	--command "/bin/sh" \
+	--task タスクID
