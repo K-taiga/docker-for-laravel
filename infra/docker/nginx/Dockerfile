@@ -14,8 +14,9 @@ COPY --from=node /usr/local/bin /usr/local/bin
 COPY --from=node /usr/local/lib /usr/local/lib
 # yarn command
 COPY --from=node /opt /opt
-# nginx config file
-COPY ./infra/docker/nginx/*.conf /etc/nginx/conf.d/
+# nginxのconfigの/etc/nginx/conf.d/をenvsubstで環境変数を展開する
+COPY ./infra/docker/nginx/default.conf /etc/nginx/templates/default.conf.template
+COPY ./infra/docker/nginx/nginx.conf /etc/nginx/nginx.conf
 # compose.ymlのvolumeでマウントしているのをECR用にimageファイルでもマウントする
 COPY ./backend/public /work/backend/public
 
