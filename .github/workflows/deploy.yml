@@ -107,6 +107,20 @@ jobs:
         uses: kayac/ecspresso@v0
         with:
           version: v1.5.3
+      # タスクを定義するだけのステップ（立ち上げない)
+      - name: Register task definition
+        run: ecspresso register --config config_$ENV_NAME.yaml
+        working-directory: ./ecspresso
+      # 最新のタスクのリビジョンでmigrate watch-containerでCloudWatchLogsに吐き出すコンテナを指定
+      # overridesで本来のタスクでする動作を上書き
+      # nginx -g daemon offでnginxが起動しコンテナが起動し続けるのを-vで阻止
+      - name: Migrate database
+        run: |
+          ecspresso run --config config_$ENV_NAME.yaml \
+            --latest-task-definition \
+            --watch-container=php \
+            --overrides='{"containerOverrides":[{"name":"nginx","command":["nginx", "-v"]},{"name":"php", "command":["php", "artisan", "migrate", "--force"]}]}'
+working-directory: ./ecspresso
       # ecspressoでタスク定義情報をリリース
       - name: Deploy to ecs
         run: ecspresso deploy --config config_$ENV_NAME.yaml

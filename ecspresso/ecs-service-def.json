@@ -30,7 +30,7 @@
             "assignPublicIp": "DISABLED",
             "securityGroups": [
                 "{{ tfstate `data.aws_security_group.vpc.id` }}",
-                "{{ tfstate `data.aws_security_db_laravel-fargate-app.id` }}"
+                "{{ tfstate `data.aws_security_group.db_laravel-fargate-app.id` }}"
             ],
             "subnets": [
                 "{{ tfstate `data.aws_subnet.private['a'].id` }}",
