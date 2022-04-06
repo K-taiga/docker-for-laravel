@@ -117,9 +117,9 @@ jobs:
       - name: Migrate database
         run: |
           ecspresso run --config config_$ENV_NAME.yaml \
-          --latest-task-definition \
-          --watch-container=php \
-          --overrides='{"containerOverrides":[{"name":"nginx","command":["nginx", "-v"]},{"name":"php", "command":["php", "artisan", "migrate", "--force"]}]}'
+            --latest-task-definition \
+            --watch-container=php \
+            --overrides='{"containerOverrides":[{"name":"nginx", "command":["nginx", "-v"]},{"name":"php", "command":["php", "artisan", "migrate", "--force"]}]}'
         working-directory: ./ecspresso
       # ecspressoでタスク定義情報をリリース
       - name: Deploy to ecs
